@@ -51,4 +51,12 @@ def bracket(year: Optional[int] = None, factor: Optional[List[str]] = typer.Opti
     teams = load_teams(year)
     bracket = load_bracket(year)
 
-    predict_bracket(teams, bracket, Factors.from_list(factor))
+    bracket_odds = predict_bracket(teams, bracket, Factors.from_list(factor))
+    for team, bracket, seed, rating, odds in bracket_odds:
+        print(seed, end="\t")
+        print(team, end="\t")
+        print(rating, end="\t")
+        print(bracket, end="\t")
+        for o in odds:
+            print(o, end="\t")
+        print()

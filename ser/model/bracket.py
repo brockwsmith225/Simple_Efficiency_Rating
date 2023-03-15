@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from ser.model.game import Location
 
@@ -69,6 +69,23 @@ class Bracket:
 					game_odds = predictor(team_1, team_2, self.location)
 					self.odds[team_1] += game_odds * self.subbracket_1.odds[team_1] * self.subbracket_2.odds[team_2]
 					self.odds[team_2] += (1.0 - game_odds) * self.subbracket_1.odds[team_1] * self.subbracket_2.odds[team_2]
+
+	@property
+	def full_odds(self) -> Dict[str, Tuple[str, str, int, List[float]]]:
+		if self.subbracket_2 is None:
+			return {self.subbracket_1: (self.subbracket_1, self.bracket_name, self.seed_1, [1.0])}
+		elif isinstance(self.subbracket_1, str):
+			return {
+				self.subbracket_1: (self.subbracket_1, self.bracket_name, self.seed_1, [self.odds.get(self.subbracket_1)]),
+				self.subbracket_2: (self.subbracket_2, self.bracket_name, self.seed_2, [self.odds.get(self.subbracket_2)]),
+			}
+
+		subbracket_1_full_odds = self.subbracket_1.full_odds
+		subbracket_2_full_odds = self.subbracket_2.full_odds
+		full_odds = {**subbracket_1_full_odds, **subbracket_2_full_odds}
+		for t, o in self.odds.items():
+			full_odds[t][3].append(o)
+		return full_odds
 
 
 	def __repr__(self) -> str:

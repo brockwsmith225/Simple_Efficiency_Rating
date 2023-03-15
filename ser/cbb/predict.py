@@ -33,10 +33,15 @@ def predict_game(teams: Dict[str, CBBTeam], team: str, opponent: str, location: 
     )
 
 
-def predict_bracket(teams: Dict[str, CBBTeam], bracket: Bracket, factors: Factors) -> List:
+def predict_bracket(teams: Dict[str, CBBTeam], bracket: Bracket, factors: Factors) -> List[Tuple[str, str, int, List[float]]]:
     def predictor(team_1: str, team_2: str, location: Location) -> str:
         return predict_game(teams, team_1, team_2, location, factors).odds
 
     bracket.evaluate(predictor)
 
     print(bracket)
+
+    bracket_odds = []
+    for team, bracket, seed, odds in bracket.full_odds.values():
+        bracket_odds.append((team, bracket, seed, teams[team].efficiency, odds))
+    return bracket_odds
