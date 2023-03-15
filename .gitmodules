@@ -1,0 +1,3 @@
+[submodule "Sports_Data_Scraper"]
+	path = Sports_Data_Scraper
+	url = https://github.com/brockwsmith225/Sports_Data_Scraper
