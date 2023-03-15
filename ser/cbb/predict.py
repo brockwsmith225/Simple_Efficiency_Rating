@@ -43,7 +43,7 @@ def predict_bracket(teams: Dict[str, CBBTeam], bracket: Bracket, factors: Factor
         csv_dict_reader = DictReader(f)
         for row in csv_dict_reader:
             teams[row["team"]] = float(row["warner_score"])
-            if [teams[row["team"]]] > 1000:
+            if teams[row["team"]] > 1000:
                 warner_scores.append(float(row["warner_score"]))
     std_dev_warner = stdev(warner_scores)
     def predictor(team_1: str, team_2: str, location: Location) -> float:
