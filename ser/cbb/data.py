@@ -30,7 +30,7 @@ def load_bracket(year: int) -> Bracket:
     with open(path, "r") as f:
         for line in f.readlines():
             if line.startswith("--"):
-                current_bracket_name = line[2:].strip()
+                current_bracket_name = line[2:]
                 continue
             line = line.split("!")
             if line[0] == "*":

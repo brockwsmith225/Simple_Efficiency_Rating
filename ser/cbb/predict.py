@@ -1,4 +1,6 @@
+from csv import DictReader
 import math
+from statistics import stdev
 from typing import Dict, List, Tuple
 
 from ser.model import Bracket, Factors, Location, Prediction
@@ -33,15 +35,24 @@ def predict_game(teams: Dict[str, CBBTeam], team: str, opponent: str, location: 
     )
 
 
-def predict_bracket(teams: Dict[str, CBBTeam], bracket: Bracket, factors: Factors) -> List[Tuple[str, str, int, List[float]]]:
-    def predictor(team_1: str, team_2: str, location: Location) -> str:
-        return predict_game(teams, team_1, team_2, location, factors).odds
+def predict_bracket(teams: Dict[str, CBBTeam], bracket: Bracket, factors: Factors) -> List:
+    path = f"./warner_score.csv"
+    teams = dict()
+    warner_scores = []
+    with open(path, "r") as f:
+        csv_dict_reader = DictReader(f)
+        for row in csv_dict_reader:
+            teams[row["team"]] = float(row["warner_score"])
+            warner_scores.append(float(row["warner_score"]))
+    std_dev_warner = stdev(warner_scores)
+    def predictor(team_1: str, team_2: str, location: Location) -> float:
+        diff = teams[team_1] - teams[team_2]
+        return 1.0/(1 + pow(10, -diff/std_dev_warner))
 
     bracket.evaluate(predictor)
 
     print(bracket)
-
     bracket_odds = []
     for team, bracket, seed, odds in bracket.full_odds.values():
-        bracket_odds.append((team, bracket, seed, teams[team].efficiency, odds))
+        bracket_odds.append((team, bracket, seed, teams[team], odds))
     return bracket_odds
