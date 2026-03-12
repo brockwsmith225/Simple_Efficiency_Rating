@@ -5,8 +5,7 @@ from ratingsystems import Prediction, Predictor, Rating
 
 class SimpleEfficiencyPredictor(Predictor):
 
-    class Meta:
-        name: str = "ser"
+    name: str = "ser"
 
     def predict(self, team: str, opponent: str) -> Prediction:
         team_offensive_efficiency = inverse_sigmoid(self.rating.offense.efficiency.get_value(team), k=self.rating.offense.efficiency._k)

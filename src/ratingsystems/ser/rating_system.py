@@ -8,8 +8,7 @@ from ratingsystems.ser.model import Efficiency
 
 class SimpleEfficiencyRatingSystem(RatingSystem):
 
-    class Meta:
-        name: str = "ser"
+    name: str = "ser"
     
     def __init__(self, k: float = 1.0):
         self.k = k
