@@ -1,0 +1,3 @@
+[ratingsystems]
+predictor = ratingsystems.ser:SimpleEfficiencyPredictor
+rating_system = ratingsystems.ser:SimpleEfficiencyRatingSystem

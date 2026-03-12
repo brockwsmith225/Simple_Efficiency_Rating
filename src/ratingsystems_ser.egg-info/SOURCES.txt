@@ -1,0 +1,17 @@
+pyproject.toml
+src/ratingsystems_ser.egg-info/PKG-INFO
+src/ratingsystems_ser.egg-info/SOURCES.txt
+src/ratingsystems_ser.egg-info/dependency_links.txt
+src/ratingsystems_ser.egg-info/entry_points.txt
+src/ratingsystems_ser.egg-info/requires.txt
+src/ratingsystems_ser.egg-info/top_level.txt
+src/ratingsystems/ser/__init__.py
+src/ratingsystems/ser/__main__.py
+src/ratingsystems/ser/predictor.py
+src/ratingsystems/ser/rating_system.py
+src/ratingsystems_ser.egg-info/PKG-INFO
+src/ratingsystems_ser.egg-info/SOURCES.txt
+src/ratingsystems_ser.egg-info/dependency_links.txt
+src/ratingsystems_ser.egg-info/entry_points.txt
+src/ratingsystems_ser.egg-info/requires.txt
+src/ratingsystems_ser.egg-info/top_level.txt
